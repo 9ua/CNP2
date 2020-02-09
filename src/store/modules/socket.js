@@ -36,8 +36,8 @@ const state = {
   showdownsorts:{},
   showcardback:false,
   frontshow:[{show:false},{show:false},{show:false},{show:false},{show:false}],
-  middleshow:false,
-  backshow:false,
+  middleshow:[{show:false},{show:false},{show:false},{show:false},{show:false}],
+  backshow:[{show:false},{show:false},{show:false},{show:false},{show:false}],
   resoult:[],
   resoultshow:false,
 }
@@ -133,7 +133,7 @@ const actions = {
     commit("CP_CommonPlayerInfoAck",payload);
   },
   CP_PlayerJoinRoom ({ dispatch, commit, state, rootState, getters, rootGetters }, payload) {
-    console.log("蛤？",{ cmd: Command.PlayerJoinRoom ,success: true,data :{ room_id: payload} })
+    console.log("蛤？",payload)
     state.roomid = payload;
         dispatch("send", { cmd: Command.PlayerJoinRoom ,success: true ,data :{ room_id: payload} });
         // commit("CP_PlayerJoinRoom",payload);
@@ -154,7 +154,7 @@ const actions = {
     dispatch("send", { cmd: Command.PlayerSeatHandUp,data :{ handup: true} });
   },
   CP_PlayerWaitToJoinTable({ dispatch, commit, state, rootState, getters, rootGetters }, payload) {
-    console.log("看妳唻耊藏啥小",{ cmd: Command.PlayerWaitToJoinTable ,data :{ room_id: payload} })
+    console.log("看妳唻耊藏啥小",{ cmd: Command.PlayerWaitToJoinTable ,data :{ room_id: state.roomid} })
     dispatch("send", { cmd: Command.PlayerWaitToJoinTable ,data :{ room_id: state.roomid } });
     
   },
@@ -251,17 +251,25 @@ const actions = {
       setTimeout(() => {
         commit("CP_TableFlowShowFront",i);
       }, 1000 * i)  
-  }
+    }
 
   },
   CP_TableFlowShowMiddle({ dispatch, commit, state, rootState, getters, rootGetters }, payload) {
     //開牌中墩
-    commit("CP_TableFlowShowMiddle",payload);
+    for(let i = 0; i < state.showdownsorts[1].length; i++) {
+      setTimeout(() => {
+        commit("CP_TableFlowShowMiddle",i);
+      }, 1000 * i)  
+    }
 
   },
   CP_TableFlowShowBack({ dispatch, commit, state, rootState, getters, rootGetters }, payload) {
     //開牌後墩
-    commit("CP_TableFlowShowBack",payload);
+    for(let i = 0; i < state.showdownsorts[2].length; i++) {
+      setTimeout(() => {
+        commit("CP_TableFlowShowBack",i);
+      }, 1000 * i)  
+    }
   },
   CP_TableFlowShowSpecial({ dispatch, commit, state, rootState, getters, rootGetters }, payload) {
     //開牌特殊牌型
@@ -393,11 +401,13 @@ const mutations = {
     openCard(state, payload){
 
     },
-    CP_TableFlowShowMiddle(state, payload){
-        state.middleshow = true;
+    CP_TableFlowShowMiddle(state, i){
+        state.middleshow[state.showdownsorts[1][i]].show = !state.middleshow[state.showdownsorts[1][i]].show;
+
     },
-    CP_TableFlowShowBack(state, payload){
-        state.backshow = true;
+    CP_TableFlowShowBack(state, i){
+        state.backshow[state.showdownsorts[2][i]].show = !state.backshow[state.showdownsorts[2][i]].show;
+
     },
     CP_TableFlowCompareResult(state, payload){
         state.resoult = payload.data;
