@@ -35,9 +35,9 @@ const state = {
   showdownstart:false,
   showdownsorts:{},
   showcardback:false,
-  frontshow:[{show:false},{show:false},{show:false},{show:false},{show:false}],
-  middleshow:[{show:false},{show:false},{show:false},{show:false},{show:false}],
-  backshow:[{show:false},{show:false},{show:false},{show:false},{show:false}],
+  frontshow:[{show:false,pa:false},{show:false,pa:false},{show:false,pa:false},{show:false,pa:false},{show:false,pa:false}],
+  middleshow:[{show:false,pa:false},{show:false,pa:false},{show:false,pa:false},{show:false,pa:false},{show:false,pa:false}],
+  backshow:[{show:false,pa:false},{show:false,pa:false},{show:false,pa:false},{show:false,pa:false},{show:false,pa:false}],
   resoult:[],
   resoultshow:false,
 }
@@ -256,6 +256,9 @@ const actions = {
   },
   CP_TableFlowShowMiddle({ dispatch, commit, state, rootState, getters, rootGetters }, payload) {
     //開牌中墩
+    for (let i =0; i< state.showdownsorts[0].length;i++){
+      state.frontshow[i].pa = !state.frontshow[i].pa;
+    }
     for(let i = 0; i < state.showdownsorts[1].length; i++) {
       setTimeout(() => {
         commit("CP_TableFlowShowMiddle",i);
@@ -265,6 +268,9 @@ const actions = {
   },
   CP_TableFlowShowBack({ dispatch, commit, state, rootState, getters, rootGetters }, payload) {
     //開牌後墩
+    for (let i =0; i< state.showdownsorts[1].length;i++){
+      state.middleshow[i].pa = !state.middleshow[i].pa;
+    }
     for(let i = 0; i < state.showdownsorts[2].length; i++) {
       setTimeout(() => {
         commit("CP_TableFlowShowBack",i);
@@ -330,7 +336,7 @@ const mutations = {
     },
     
     CP_PlayerLeaveTableAck() {
-        state.position = Position.Lobby;
+        // state.position = Position.Lobby;   記得打開
         console.log(state.position);
     },
     CP_TableFlowHandupPlayers(state, payload) {
@@ -396,14 +402,15 @@ const mutations = {
     CP_TableFlowShowFront(state, i){
       console.log('前墩開牌',state.frontshow,state.showdownsorts[0])
         state.frontshow[state.showdownsorts[0][i]].show = !state.frontshow[state.showdownsorts[0][i]].show;
-   
+        state.frontshow[state.showdownsorts[0][i]].pa = !state.frontshow[state.showdownsorts[0][i]].pa;
+
     },
     openCard(state, payload){
 
     },
     CP_TableFlowShowMiddle(state, i){
         state.middleshow[state.showdownsorts[1][i]].show = !state.middleshow[state.showdownsorts[1][i]].show;
-
+        state.middleshow[state.showdownsorts[1][i]].pa = !state.middleshow[state.showdownsorts[1][i]].pa;
     },
     CP_TableFlowShowBack(state, i){
         state.backshow[state.showdownsorts[2][i]].show = !state.backshow[state.showdownsorts[2][i]].show;

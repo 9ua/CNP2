@@ -2,38 +2,39 @@
   <div class="table" style="width:100%">
     <div class="popup_wrapper_2" v-show="$store.state.socket.choosetime > 0">
       <div style="height:100%;width:100%;display:flex;clear:both;">
-        <ul style="width:100vh;height:100%;margin:20px 0;float:left;">
-          <div style="display:flex;clear:both;height:30%;padding:10px 0">
+        <ul style="width:100vh;height:100%;float:left;margin:0px">
+          <div class="pickingcards">
             <li style="height:100%;width:10%">
               <h4 style="font-weight:200;font-size:0.8rem;color:#fff;border:#fff 1px solid; padding:6px 14px;margin-top:50%;background:#84684C;border-radius:20px">前墩</h4>
             </li>
-            <li @click="setcard(item,index)" :v-model="cardpicking[index]" v-for="(item, index) in cardpicking.slice(0, 3)" :key="index" style="height:100%"><img :src='"@/assets/poker_card/" + cardpicking[index] + ".png"' alt="" style="height:100%"></li>
-            <div style="border:#fff 1px solid; border-radius:50%;width:10vh;height:10vh;margin:30px;text-align:center">
-            <h1 style="font-size:28px;color:#fff" :v-model="$store.state.socket.choosetime">{{$store.state.socket.choosetime}}</h1>
+            <li @click="setcard(item,index)" :v-model="cardpicking[index]" v-for="(item, index) in cardpicking.slice(0, 3)" :key="index" style="height:100%">
+              <img :src='"@/assets/poker_card/" + cardpicking[index] + ".png"' alt="" style="height:100%"></li>
+            <div style="border:#fff 0.5vh solid; border-radius:50%;width:10vh;height:10vh;margin:3%;text-align:center">
+            <h1 style="font-size:2rem;color:#fff;margin:20% 0" :v-model="$store.state.socket.choosetime">{{$store.state.socket.choosetime}}</h1>
             </div>
           </div>
-          <div style="display:flex;clear:both;height:30%;padding:10px 0">
-            <li style="height:100%;width:60px">
+          <div class="pickingcards">
+            <li style="height:100%;width:10%">
               <h4 style="font-weight:200;font-size:14px;color:#fff;border:#fff 1px solid; padding:6px 14px;margin-top:50%;background:#84684C;border-radius:20px">中墩</h4>
             </li>
             <li @click="setcard(item,index+3)" :v-model="cardpicking[index+3]" v-for="(item, index) in cardpicking.slice(3, 8)" :key="index" style="height:100%" ><img :src='"@/assets/poker_card/" + cardpicking[index+3] + ".png"' alt="" style="height:100%"></li>
           </div>
-          <div style="display:flex;clear:both;height:30%;padding:10px 0">
-            <li style="height:100%;width:60px">
+          <div class="pickingcards">
+            <li style="height:100%;width:10%">
               <h4 style="font-weight:200;font-size:14px;color:#fff;border:#fff 1px solid; padding:6px 14px;margin-top:50%;background:#84684C;border-radius:20px">後墩</h4>
             </li> 
             <li @click="setcard(item,index+8)" :v-model="cardpicking[index+8]" v-for="(item, index) in cardpicking.slice(8, 13)" :key="index" style="height:100%"><img :src='"@/assets/poker_card/" + cardpicking[index+8] + ".png"' alt="" style="height:100%"></li>
           </div>
         </ul>
-        <div style="width:36%;height:100%;background:linear-gradient(40deg,#84684C, #CC9B66);border:#fff 1px solid;margin:20px 0;border-radius:20px;text-align:center">
-          <h1 style="font-weight:200;color:#fff">推 薦 牌 型</h1>
-          <div  style="text-align:center;display:flex; clear: both;width:90%;border-radius: 16px;color:#fff">
-            <h4 style="width:100%;font-weight:200">前墩 |  中墩  |  後墩}</h4>
+        <div style="width:36%;height:90%;background:linear-gradient(40deg,#84684C, #CC9B66);border:#fff 1px solid;margin:2% 0;border-radius:2vh;text-align:center">
+          <h1 style="font-weight:200;color:#fff;margin:1% 0">推 薦 牌 型</h1>
+          <div  style="text-align:center;display:flex; clear: both;width:100%;border-radius: 3vh;color:#fff">
+            <h4 style="width:100%;font-weight:200;margin:1% 0">前墩 |  中墩  |  後墩</h4>
           </div>
-          <div @click="setrecommand(item)"  v-for="(item, index) in $store.state.socket.recommand" :key="index" style="text-align:center;display:flex; clear: both;width:90%;border:#fff 1px solid; margin:3% 5%;border-radius: 16px;color:#fff">
-            <h4 style="width:100%;font-weight:200">{{item.front_pattern_type}}  |  {{item.middle_pattern_type}}  |  {{item.back_pattern_type}}</h4>
+          <div @click="setrecommand(item)"  v-for="(item, index) in $store.state.socket.recommand" :key="index" style="text-align:center;display:flex; clear: both;width:90%;border:#fff 1px solid; margin:3% 5%;border-radius: 2vh;color:#fff">
+            <h4 style="width:100%;font-weight:200;margin:4% 0">{{item.front_pattern_type}}  |  {{item.middle_pattern_type}}  |  {{item.back_pattern_type}}</h4>
           </div>
-          <button @click="handconfirm()" style="padding-top:30px;height:40px;background:rgba(0,0,0,0);border:none;margin:0 auto"> 
+          <button @click="handconfirm()" style="padding-top:4%;height:10%;background:rgba(0,0,0,0);border:none;margin:0 auto"> 
              <img style="width:60%;z-index:2" src="@/assets/confirm.png" alt="">
           </button>
         </div>
@@ -60,7 +61,7 @@
      <!-- <h2 style="color:#fff">{{$store.state.socket.resoult}}</h2> -->
       <div class="popup_mask" v-if="$store.state.socket.resoultshow" @click="roomlistwrap =! roomlistwrap"></div>
     </div>
-    <div style="height:74%;width:100%;">
+    <div style="height:100%;width:100%;margin:0px">
       <ul class="playerinfo">
         <li v-for="(item, index) in $store.state.socket.players" :key="index">
           <div class="acc">
@@ -73,43 +74,43 @@
             <div v-if="$store.state.socket.showdownstart" class="acc_cards">
               <div style="display:flex;clear:both;width:100%">
                 <div style="width:20%;height:2px;"></div>
+                <img class="cardsec" v-show="!$store.state.socket.frontshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:20%">
                 <img v-show="!$store.state.socket.frontshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:20%">
-                <img v-show="!$store.state.socket.frontshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:20%">
-                <img v-show="!$store.state.socket.frontshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:20%">
-                <img v-show="$store.state.socket.frontshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][0][0] + ".png"' alt="" style="width:20%">
+                <img class="card4th" v-show="!$store.state.socket.frontshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:20%">
+                <img class="cardsec" v-show="$store.state.socket.frontshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][0][0] + ".png"' alt="" style="width:20%">
                 <img v-show="$store.state.socket.frontshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][0][1] + ".png"' alt="" style="width:20%">
-                <img v-show="$store.state.socket.frontshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][0][2] + ".png"' alt="" style="width:20%">
-                <img v-show="$store.state.socket.frontshow[index].show" :src='"@/assets/pattern/" + $store.state.socket.showdownpattern[index][0] + ".png"' alt="" style="position:absolute;width:60%;top:50%">
+                <img class="card4th" v-show="$store.state.socket.frontshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][0][2] + ".png"' alt="" style="width:20%">
+                <img v-show="$store.state.socket.frontshow[index].pa" :src='"@/assets/pattern/" + $store.state.socket.showdownpattern[index][0] + ".png"' alt="" style="position:absolute;width:60%;top:30%;z-index:30">
               </div>
               <div style="display:flex;clear:both">
-                <img v-show="!$store.state.socket.middleshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:40px">
-                <img v-show="!$store.state.socket.middleshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:40px">
-                <img v-show="!$store.state.socket.middleshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:40px">
-                <img v-show="!$store.state.socket.middleshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:40px">
-                <img v-show="!$store.state.socket.middleshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:40px">
+                <img class="cardfirst" v-show="!$store.state.socket.middleshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:20%">
+                <img class="cardsec" v-show="!$store.state.socket.middleshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:20%">
+                <img v-show="!$store.state.socket.middleshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:20%">
+                <img class="card4th" v-show="!$store.state.socket.middleshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:20%">
+                <img class="cardlast" v-show="!$store.state.socket.middleshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:20%">
 
-                <img v-show="$store.state.socket.middleshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][1][0] + ".png"' alt="" style="width:40px">
-                <img v-show="$store.state.socket.middleshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][1][1] + ".png"' alt="" style="width:40px">
-                <img v-show="$store.state.socket.middleshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][1][2] + ".png"' alt="" style="width:40px">
-                <img v-show="$store.state.socket.middleshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][1][3] + ".png"' alt="" style="width:40px">
-                <img v-show="$store.state.socket.middleshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][1][4] + ".png"' alt="" style="width:40px">
+                <img class="cardfirst" v-show="$store.state.socket.middleshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][1][0] + ".png"' alt="" style="width:20%">
+                <img class="cardsec" v-show="$store.state.socket.middleshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][1][1] + ".png"' alt="" style="width:20%">
+                <img v-show="$store.state.socket.middleshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][1][2] + ".png"' alt="" style="width:20%">
+                <img class="card4th" v-show="$store.state.socket.middleshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][1][3] + ".png"' alt="" style="width:20%">
+                <img class="cardlast" v-show="$store.state.socket.middleshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][1][4] + ".png"' alt="" style="width:20%">
 
-                <img v-show="$store.state.socket.middleshow[index].show" :src='"@/assets/pattern/" + $store.state.socket.showdownpattern[index][1] + ".png"' alt="" style="position:absolute;width:60%;">
+                <img v-show="$store.state.socket.middleshow[index].pa" :src='"@/assets/pattern/" + $store.state.socket.showdownpattern[index][1] + ".png"' alt="" style="position:absolute;width:60%;top:60%;z-index:30">
               </div>
               <div style="display:flex;clear:both">
-                <img v-show="!$store.state.socket.backshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:40px">
-                <img v-show="!$store.state.socket.backshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:40px">
-                <img v-show="!$store.state.socket.backshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:40px">
-                <img v-show="!$store.state.socket.backshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:40px">
-                <img v-show="!$store.state.socket.backshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:40px">
+                <img class="cardfirst" v-show="!$store.state.socket.backshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:20%">
+                <img class="cardsec" v-show="!$store.state.socket.backshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:20%">
+                <img v-show="!$store.state.socket.backshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:20%">
+                <img class="card4th" v-show="!$store.state.socket.backshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:20%">
+                <img class="cardlast" v-show="!$store.state.socket.backshow[index].show" src="@/assets/poker_card/000.png" alt="" style="width:20%">
 
-                <img v-show="$store.state.socket.backshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][2][0] + ".png"' alt="" style="width:40px">
-                <img v-show="$store.state.socket.backshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][2][1] + ".png"' alt="" style="width:40px">
-                <img v-show="$store.state.socket.backshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][2][2] + ".png"' alt="" style="width:40px">
-                <img v-show="$store.state.socket.backshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][2][3] + ".png"' alt="" style="width:40px">
-                <img v-show="$store.state.socket.backshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][2][4] + ".png"' alt="" style="width:40px">
+                <img class="cardfirst" v-show="$store.state.socket.backshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][2][0] + ".png"' alt="" style="width:20%">
+                <img class="cardsec" v-show="$store.state.socket.backshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][2][1] + ".png"' alt="" style="width:20%">
+                <img v-show="$store.state.socket.backshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][2][2] + ".png"' alt="" style="width:20%">
+                <img class="card4th" v-show="$store.state.socket.backshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][2][3] + ".png"' alt="" style="width:20%">
+                <img class="cardlast" v-show="$store.state.socket.backshow[index].show" :src='"@/assets/poker_card/" + $store.state.socket.showdowncards[index][2][4] + ".png"' alt="" style="width:20%">
                 
-                <img v-show="$store.state.socket.backshow[index].show" :src='"@/assets/pattern/" + $store.state.socket.showdownpattern[index][2] + ".png"' alt="" style="position:absolute;width:60%">
+                <img v-show="$store.state.socket.backshow[index].show" :src='"@/assets/pattern/" + $store.state.socket.showdownpattern[index][2] + ".png"' alt="" style="position:absolute;width:60%;top:90%;z-index:30">
                 
               </div>
 
@@ -118,12 +119,12 @@
         </li>
       </ul>
     </div>
-    <div v-show="$store.state.socket.showhandcards" style="position:absolute;bottom: 0px; width:84%;height:26%; margin:auto ;padding-left:8%;overflow:visible">
-        <ul style="width:100%;display:flex; clear: both;">
+    <div v-show="$store.state.socket.showhandcards" style="position:absolute;bottom: 0px; width:84%;height:26%; margin:auto ;padding-left:8%;overflow:hidden">
+        <ul style="width:100%;display:flex; clear: both;padding:0px">
           <li class="cardo" @click="choose(item,index)" v-for="(item, index) in $store.state.socket.handcards" :key="index" style="position:relative;float:left;width:7%;text-align:center; margin:2px;color:#fff;display:block;">
-            <div v-show="cardcover[index]" class="mask" style="overflow:visible"></div>
+            <div v-show="cardcover[index]" class="mask" style="overflow:visible;"></div>
             <!-- <img v-show="cardcover[index]" :src='"@/assets/poker_card/0.png"' alt="" style="width:100%;position:relative;left:0px;top:0px;z-index:2"> -->
-            <img :src='"@/assets/poker_card/" + item + ".png"' alt="" style="position:relative;left:0px;top:0px;z-index:1">
+            <img :src='"@/assets/poker_card/" + item + ".png"' alt="" style="position:relative;left:0px;top:0px;z-index:1;width:140%">
             <!-- <div style=" position: absolute;top: 0;left: 0;width: 531px;height: 354px;background: rgba(101, 101, 101, 0.6);color: #ffffff; opacity: 0;"></div> -->
             <!-- index:{{index}}<br>
             cards:  {{item}}  -->
@@ -316,7 +317,7 @@ a {
   background-size: cover;
   width:100%;
   height:100%;
-  margin-top:-16px;
+  /* margin-top:-16px; */
 }
 .table:after{
   display: block;
@@ -331,12 +332,17 @@ a {
         height: 100%;
         background: rgba(0, 0, 0, 0.6);
 }
+.cardo:nth-last-child(1) .mask {
+  width:140%;
+  background: rgba(0, 0, 0, 0.6);
+
+}
 .cardo {
   margin:0px !important;
 }
-.playerinfo{ height:100%}
+.playerinfo{ height:100% ;margin:0px}
 .playerinfo li:nth-child(2) .acc {
-  width:320px;
+  width:24%;
   float:right;
   position: absolute;
   top:30%;
@@ -347,10 +353,10 @@ a {
 }
 .playerinfo li:nth-child(2) .acc .acc_cards{
   float: left;
-  padding-left:20px;
+  /* padding-left:20px; */
 }
 .playerinfo li:nth-child(3) .acc {
-  width:320px;
+  width:24%;
   float:right;
   position: absolute;
   top:4%;
@@ -361,10 +367,10 @@ a {
 }
 .playerinfo li:nth-child(3) .acc .acc_cards{
   float: left;
-  padding-left:20px;
+  /* padding-left:20px; */
 }
 .playerinfo li:nth-child(4) .acc {
-  width:320px;
+  width:24%;
   float:right;
   position: absolute;
   top:4%;
@@ -375,10 +381,10 @@ a {
 }
 .playerinfo li:nth-child(4) .acc .acc_cards{
   float: right;
-  padding-right:20px;
+  /* padding-right:20px; */
 }
 .playerinfo li:nth-child(5) .acc {
-  width:320px;
+  width:24%;
   float:right;
   position: absolute;
   top:30%;
@@ -389,10 +395,10 @@ a {
 }
 .playerinfo li:nth-child(5) .acc .acc_cards{
   float: right;
-  padding-right:20px;
+  /* padding-right:20px; */
 }
 .playerinfo li:nth-child(1) .acc {
-  width:320px;
+  width:24%;
   float:right;
   position: absolute;
   bottom:4%;
@@ -403,25 +409,74 @@ a {
 }
 .playerinfo li:nth-child(1) .acc .acc_cards{
   float: left;
-  padding-left:20px;
+  /* padding-left:20px; */
 }
 .playerinfo li{
   width:20%;
   float:left;
 }
 .playerinfo .acc .acc_cards{
-  width:70%
+  width:60%
 }
 .playerinfo .acc .acc_info{
-  width:30%
+  width:26%
 }
 
 .playerinfo li .acc .acc_info{
-  padding:8px;
+  padding:5%;
   /* margin:4px; */
   color:#fff;
   background: rgba(0,0,0,0.6);
-  border:#fff 2px solid;
-  border-radius: 22px;
+  /* border:#fff 0.5vh solid; */
+  border-radius: 3vh;
+}
+.pickingcards{
+  display:flex;
+  clear:both;
+  height:30%;
+  padding:1% 0;
+}
+.pickingcards li {
+  margin:1%;
+}
+.cardfirst{
+    -moz-transform:rotate(-10deg);
+  -webkit-transform:rotate(-10deg);
+  -o-transform:rotate(-10deg);
+  -ms-transform:rotate(-10deg);
+  transform:rotate(-10deg);
+  padding-top:4%;
+  margin-bottom:-4%;
+
+}
+.cardsec{
+    -moz-transform:rotate(-5deg);
+  -webkit-transform:rotate(-5deg);
+  -o-transform:rotate(-5deg);
+  -ms-transform:rotate(-5deg);
+  transform:rotate(-5deg);
+  padding-top:1%;
+  margin-bottom:-1%;
+
+}
+.card4th{
+    -moz-transform:rotate(5deg);
+  -webkit-transform:rotate(5deg);
+  -o-transform:rotate(5deg);
+  -ms-transform:rotate(5deg);
+  transform:rotate(5deg);
+  padding-top:1%;
+  margin-bottom:-1%;
+
+}
+.cardlast{
+    -moz-transform:rotate(10deg);
+  -webkit-transform:rotate(10deg);
+  -o-transform:rotate(10deg);
+  -ms-transform:rotate(10deg);
+  transform:rotate(10deg);
+  padding-top:4%;
+  margin-bottom:-4%;
+
 }
 </style>

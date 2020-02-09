@@ -48,7 +48,7 @@ export default {
         withCredentials: false
       };
       let formData = new FormData();
-      formData.append('member_account', 'test999');
+      formData.append('member_account', 'chase1');
       this.$axios
         .post('http://13.230.92.57:8080/v1/apis/vendor/integration/member/login' , formData, config)
         .then(res => {
