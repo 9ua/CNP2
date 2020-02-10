@@ -1,12 +1,12 @@
 <template>
   <div class="lobby">
-    <div class="popup_wrapper" v-show="roomlistwrap">
-      <div style="height:100%;width:100vw;overflow:scroll;">
-        <ul style="margin:30px 0px;width:90%;padding-left:5%;height:100%;display:flex; clear: both;">
-          <li v-show="item.type==1" v-for="(item, index) in roomList" :key="index" style="float:left;width:30%;text-align:center; height:80vh; margin:10px;background:linear-gradient(to top, #004137, #006837);border:1vh #333 solid;border-radius:5vh;color:#fff;display:block;">
+    <div @click="roomlistwrap = !roomlistwrap" class="popup_wrapper" v-show="roomlistwrap">
+      <div style="height:100%;width:100%;overflow:scroll;">
+        <ul style="width:80%;padding:0 10%;margin:0px;height:100%;display:flex; clear: both;">
+          <li v-show="item.type==1" v-for="(item, index) in roomList" :key="index" style="float:left;width:30%;text-align:center; height:70%;margin:10% 0.5%;background:linear-gradient(to top, #004137, #006837);border:1vh #333 solid;border-radius:5vh;color:#fff;display:block;">
             <div style="height:80%">
              <img style="padding-top:12%;width:100%;z-index:2" src="@/assets/tablebtn.png" alt="">
-            <h2> {{item.name}} </h2>
+            <h2 style="font-size:2rem"> {{item.name}} </h2>
             <br>
             一分 {{item.lower_amount}} 
 
@@ -87,11 +87,6 @@ export default {
 
   },
   mounted() {
-    for(let i = 0; i < 5; i++) {
-      setTimeout(() => {
-        console.log(i)
-      }, i * 1000)
-    }
   },
   methods: {
     ...mapActions("socket", ["CP_PlayerListRooms","CP_PlayerJoinRoom","CP_PlayerSeatHandUp","CP_Logout"]),
@@ -106,13 +101,13 @@ export default {
       this.$store.state.socket.roomType = item.id;  //直接修改state 待修正
       this.CP_PlayerJoinRoom(payload);
       // this.roomlistwrap =! this.roomlistwrap;
-      this.handupPop =! this.handupPop;
+      // this.handupPop =! this.handupPop;
     },
     off(){
       this.CP_Logout();
     },
     handupPop(){
-      this.$store.state.socket.handsuppop =! this.$store.state.socket.handsuppop;
+      // this.$store.state.socket.handsuppop = false;
     },
     handup(){
       this.CP_PlayerSeatHandUp();
@@ -157,5 +152,6 @@ a {
   display: block;
   clear:both;
 }
+
 
 </style>

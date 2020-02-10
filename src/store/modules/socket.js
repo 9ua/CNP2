@@ -11,12 +11,16 @@ const state = {
   token:'',
   playerid :'',
   playername :'',
+  gameroomrule:[],
   playerbalance :'',
   playerimg :'',
+  gameround:'',
+  gameroundshow:false,
   playergame_balance :'',
   roomList: [],
   position: Position.Init,
   roomType:'',
+  gametablerule:[],
   handsup:false,
   handsupCountdown:'',
   handupAlready:false,
@@ -180,10 +184,15 @@ const actions = {
   
   CP_GameRoomRule({ dispatch, commit, state, rootState, getters, rootGetters }, payload) {
     //房間規則  樂透彩池
+    // console.log('這裡出問題');
+    commit("CP_GameRoomRule",payload)
   },
   
   CP_GameTableRule({ dispatch, commit, state, rootState, getters, rootGetters }, payload) {
     //牌桌規則
+    console.log('這裡出問題');
+
+    commit("CP_GameTableRule",payload)
             // table_type: 1
             // seat_count: 4
             // round_count: 1
@@ -198,7 +207,7 @@ const actions = {
   
   CP_TableFlowGameRound({ dispatch, commit, state, rootState, getters, rootGetters }, payload) {
     //遊戲局數
-
+    commit("CP_TableFlowGameRound",payload)
   },
   CP_TableFlowRandomCard({ dispatch, commit, state, rootState, getters, rootGetters }, payload) {
     //切牌
@@ -336,8 +345,25 @@ const mutations = {
     },
     
     CP_PlayerLeaveTableAck() {
-        // state.position = Position.Lobby;   記得打開
+        state.position = Position.Lobby; 
+        state.handsuppop = !state.handsuppop ;
+        state.handupAlready = ! state.handupAlready;
+        state.resoultshow = ! state.resoultshow;
+        state.handsupCountdown ='';
+        state.showdownstart = false;
         console.log(state.position);
+        for(let i = 0; i < state.frontshow.length; i++) {
+          state.frontshow[i].show= false;
+          state.frontshow[i].pa= false;
+        }
+        for(let i = 0; i < state.middleshow.length; i++) {
+          state.middleshow[i].show= false;
+          state.middleshow[i].pa= false;
+        }
+        for(let i = 0; i < state.backshow.length; i++) {
+          state.backshow[i].show= false;
+          state.backshow[i].pa= false;
+        }
     },
     CP_TableFlowHandupPlayers(state, payload) {
         state.handsupCountdown = payload.data.Time;
@@ -405,8 +431,16 @@ const mutations = {
         state.frontshow[state.showdownsorts[0][i]].pa = !state.frontshow[state.showdownsorts[0][i]].pa;
 
     },
-    openCard(state, payload){
-
+    CP_GameTableRule(state, payload){
+       state.gametablerule = payload.data;
+    },
+    CP_TableFlowGameRound(state, payload){
+       state.gameround = payload.data.game_round;
+       state.gameroundshow = true;
+       console.log("gameround")
+       setTimeout(() => {
+        state.gameroundshow = false;
+       }, 2000);
     },
     CP_TableFlowShowMiddle(state, i){
         state.middleshow[state.showdownsorts[1][i]].show = !state.middleshow[state.showdownsorts[1][i]].show;
@@ -427,6 +461,11 @@ const mutations = {
         state.playerimg = payload.data.img;
         state.playergame_balance = payload.data.game_balance;
     },
+    
+    CP_GameRoomRule(state, payload){
+      console.log('有到這裡嗎？');
+      state.gameroomrule = payload.data;
+  },
 
 }
 

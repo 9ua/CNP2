@@ -41,6 +41,7 @@
       </div>
       <div class="popup_mask" v-show="$store.state.socket.choosetime > 0" @click="roomlistwrap =! roomlistwrap"></div>
     </div>
+
     <div class="popup_wrapper" v-if="$store.state.socket.resoultshow">
       <div style="text-align:center;width:50%;height:60%;margin:20vh auto;background:#e2e2e2;border:6px #333 solid;border-radius:30px;">
         <div style="background:#009145;height:40%;width:100%;border-radius:25px;">
@@ -60,6 +61,23 @@
       </div>
      <!-- <h2 style="color:#fff">{{$store.state.socket.resoult}}</h2> -->
       <div class="popup_mask" v-if="$store.state.socket.resoultshow" @click="roomlistwrap =! roomlistwrap"></div>
+    </div>
+    <!-- <div class="animate">
+                <img src="@/assets/poker_card/000.png" alt="" style="width:5vh;margin-left:-10vh">
+                <img src="@/assets/poker_card/000.png" alt="" style="width:5vh;margin-left:-10vh">
+                <img src="@/assets/poker_card/000.png" alt="" style="width:5vh;margin-left:-10vh">
+                <img src="@/assets/poker_card/000.png" alt="" style="width:5vh;margin-left:-10vh">
+                <img src="@/assets/poker_card/000.png" alt="" style="width:5vh;margin-left:-10vh">
+                <img src="@/assets/poker_card/000.png" alt="" style="width:5vh;margin-left:-10vh">
+                <img src="@/assets/poker_card/000.png" alt="" style="width:5vh;margin-left:-10vh">
+                <img src="@/assets/poker_card/000.png" alt="" style="width:5vh;margin-left:-10vh">
+                <img src="@/assets/poker_card/000.png" alt="" style="width:5vh;margin-left:-10vh">
+                <img src="@/assets/poker_card/000.png" alt="" style="width:5vh;margin-left:-10vh">
+
+    </div> -->
+    <div v-if="$store.state.socket.gameroundshow" style="position:absolute;top:46%;left:50%;color:#fff">
+          {{$store.state.socket.gameround}}局/{{$store.state.socket.gametablerule.round_count}}局<br>
+          一分{{$store.state.socket.gameroomrule.lower_amount}}
     </div>
     <div style="height:100%;width:100%;margin:0px">
       <ul class="playerinfo">
@@ -479,4 +497,30 @@ a {
   margin-bottom:-4%;
 
 }
+.animate {
+        color: white;
+        text-transform: uppercase;
+        margin-top: 100px;
+        text-align: center;
+        font-size: 6rem;
+        line-height: 1;
+        animation: letterspacing 0.2s 15 alternate ease-in-out;
+        display: block;
+        letter-spacing: .5rem;
+}
+    @keyframes letterspacing {
+        0% {
+            letter-spacing: -2vh;
+            /* filter: blur(20px); */
+        }
+
+        40% {
+            /* filter: blur(6px); */
+        }
+
+        100% {
+            letter-spacing: 0vh;
+            /* filter: blur(0); */
+        }
+    }
 </style>
